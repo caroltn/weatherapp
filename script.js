@@ -42,10 +42,29 @@ function initPage() {
           .then(function (response) {
             let UVIndex = document.createElement("span");
             UVIndex.setAttribute("class", "badge badge-danger");
-            UVIndex.innerHTML = response.data[0].value;
+            // UVIndex.innerHTML = response.data[0].value;
             currentUVEl.innerHTML = "UV Index: ";
             currentUVEl.append(UVIndex);
           });
+
+          //changes the color of the UV (uvColor) by intensity
+        const uvRating = (uvIndex) => {
+          if (uvNumber <= 2) {
+            uvColor = 'low'
+          }
+          else if (uvNumber <= 5) {
+            uvColor = 'mod'
+          }
+          else if (uvNumber <= 7) {
+            uvColor = 'high'
+          }
+          else if (uvNumber <= 10) {
+            uvColor = 'very'
+          }
+          else if (uvNumber > 10) {
+            uvColor = 'extreme'
+          }
+        }
 
         let cityID = response.data.id;
         let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
